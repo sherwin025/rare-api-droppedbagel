@@ -1,0 +1,11 @@
+[
+    {
+        "model": "rareapi.theuser",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "bio": "first person",
+            "created_on": "2022-02-14"
+        }
+    }
+]
