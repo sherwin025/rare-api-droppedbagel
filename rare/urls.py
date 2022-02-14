@@ -4,7 +4,10 @@ from django.urls import path
 from rareapi.views import register_user,  login_user
 from rest_framework import routers
 
+from rareapi.views.post import PostView
+
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r"posts", PostView, "post")
 
 urlpatterns = [
     path('register', register_user),
