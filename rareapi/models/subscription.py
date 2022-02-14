@@ -3,6 +3,6 @@ from datetime import datetime
 
 
 class Subscription(models.Model):
-    follower_id = models.IntegerField()
-    author_id = models.IntegerField()
-    created_on = models.DateField(auto_now=False, auto_now_add=False)
+    follower = models.ForeignKey("theUser", on_delete=models.CASCADE, related_name="sub_follower")
+    author = models.ForeignKey("theUser", on_delete=models.CASCADE)
+    created_on = models.DateField(auto_now=True)

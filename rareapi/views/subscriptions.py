@@ -3,6 +3,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
 from rareapi.models.subscription import Subscription
+from rareapi.models.user import theUser
 
 class SubscriptionView(ViewSet):
     def retrieve(self, request, pk):
@@ -16,9 +17,12 @@ class SubscriptionView(ViewSet):
         return Response(serializer.data)
 
     def create(self, request):
+        follower = theUser.objects.get(pk=request.data['follower'])
+        author = theUser.objects.get(pk=request.data["author"])
+
         subscription = Subscription.objects.create(
-            follower_id=request.data["follower_id"],
-            author_id=request.data["author_id"],
+            follower=follower,
+            author=author,
             created_on=request.data["created_on"]
         )
         serializer = SubscriptionSerializer(subscription)
