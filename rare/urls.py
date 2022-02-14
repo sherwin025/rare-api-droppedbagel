@@ -5,8 +5,12 @@ from rareapi.views import register_user,  login_user
 from rest_framework import routers
 from rareapi.views import TagView
 
+from rareapi.views.post import PostView
+
 router = routers.DefaultRouter(trailing_slash=False)
+router.register(r"posts", PostView, "post")
 router.register(r'tags', TagView, 'tag')
+
 
 urlpatterns = [
     path('register', register_user),
