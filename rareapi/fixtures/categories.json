@@ -1,0 +1,23 @@
+[
+    {
+        "model": "rareapi.Category",
+        "pk": 1,
+        "fields": {
+            "label": "Interview"
+        }
+    },
+    {
+        "model": "rareapi.Category",
+        "pk": 2,
+        "fields": {
+            "label": "Food"
+        }
+    },
+    {
+        "model": "rareapi.Category",
+        "pk": 3,
+        "fields": {
+            "label": "Games"
+        }
+    }
+]
