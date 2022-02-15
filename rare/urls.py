@@ -1,16 +1,18 @@
 from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
-from rareapi.views import register_user,  login_user
+from rareapi.views import register_user,  login_user, CategoryView
 from rest_framework import routers
 
 from rareapi.views.subscriptions import SubscriptionView
 
 router = routers.DefaultRouter(trailing_slash=False)
+
 router.register(r'subscriptions', SubscriptionView, 'subscription')
 
 from rareapi.views import TagView
 from rareapi.views.post import PostView
+router.register(r'categories', CategoryView, 'category')
 router.register(r"posts", PostView, "post")
 router.register(r'tags', TagView, 'tag')
 
