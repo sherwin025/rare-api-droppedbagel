@@ -13,6 +13,9 @@ class SubscriptionView(ViewSet):
 
     def list(self, request):
         subs = Subscription.objects.all()
+        author = request.query_params.get('author', None)
+        if author is not None:
+            subs = subs.filter(author=author)
         serializer = SubscriptionSerializer(subs, many=True)
         return Response(serializer.data)
 
