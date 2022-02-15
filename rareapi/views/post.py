@@ -21,6 +21,18 @@ class PostView(ViewSet):
 
     def list(self, request):
         posts = Post.objects.filter(Q(approved="True") & Q(publication_date__lte=datetime.now())).order_by("-publication_date")
+        search_title = self.request.query_params.get("search", None)
+        search_cat = self.request.query_params.get("catfilter", None)
+        search_tag = self.request.query_params.get("tagfilter", None)
+        search_user = self.request.query_params.get("userfilter", None)
+        if search_title is not None:
+            posts = posts.filter(Q(title__contains=search_title))
+        if search_cat is not None:
+            posts = posts.filter(Q(category__contains=search_cat))
+        if search_tag is not None:
+            posts = posts.filter(Q(tag__contains=search_tag))
+        if search_user is not None:
+            posts = posts.filter(Q(user_id__id=search_user))
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
     
