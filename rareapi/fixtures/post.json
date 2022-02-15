@@ -9,7 +9,7 @@
             "image_url": "google.com",
             "content": "ello mate",
             "approved": 1,
-            "category": 1
+            "category": 6
         }
     }, {
         "model": "rareapi.post",
@@ -21,7 +21,7 @@
             "image_url": "google.com",
             "content": "not approvede",
             "approved": 0,
-            "category": 1
+            "category": 7
         }
     },
     {
@@ -34,7 +34,7 @@
             "image_url": "google.com",
             "content": "not approvede",
             "approved": 1,
-            "category": 1
+            "category": 8
         }
     },    {
         "model": "rareapi.post",
@@ -46,7 +46,7 @@
             "image_url": "google.com",
             "content": "not approvede",
             "approved": 1,
-            "category": 1
+            "category": 9
         }
     }
 ]
