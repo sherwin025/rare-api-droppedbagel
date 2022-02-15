@@ -3,5 +3,4 @@ from .subscriptions import SubscriptionView, SubscriptionSerializer
 from .post import PostView
 from .tag import TagView
 from .categoryView import CategoryView
-
-
+from .userview import UserView
