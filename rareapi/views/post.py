@@ -21,6 +21,9 @@ class PostView(ViewSet):
 
     def list(self, request):
         posts = Post.objects.filter(Q(approved="True") & Q(publication_date__lte=datetime.now())).order_by("-publication_date")
+        search_title = self.request.query_params.get("search", None)
+        if search_title is not None:
+            posts = posts.filter(Q(title__contains=search_title))
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
     
