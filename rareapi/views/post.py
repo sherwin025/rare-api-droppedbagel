@@ -28,11 +28,11 @@ class PostView(ViewSet):
         if search_title is not None:
             posts = posts.filter(Q(title__contains=search_title))
         if search_cat is not None:
-            posts = posts.filter(Q(category__contains=search_cat))
+            posts = posts.filter(Q(category=search_cat))
         if search_tag is not None:
             posts = posts.filter(Q(tag__contains=search_tag))
         if search_user is not None:
-            posts = posts.filter(Q(user_id__id=search_user))
+            posts = posts.filter(Q(user=search_user))
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
     
@@ -44,7 +44,7 @@ class PostView(ViewSet):
     def update(self,request, pk):
         try: 
             post = Post.objects.get(pk=pk)
-            serializer = PostSerializer(post, request.data)
+            serializer = CreatePostSerializer(post, request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(None, status=status.HTTP_204_NO_CONTENT)
