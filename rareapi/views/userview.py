@@ -22,7 +22,7 @@ class UserView(ViewSet):
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
     
     def list(self, request):
-        user = theUser.objects.all()
+        user = theUser.objects.order_by('user__username')
         serializer = UserSerializer(user, many=True)
         return Response(serializer.data)
 
