@@ -25,8 +25,7 @@ class SubscriptionView(ViewSet):
 
         subscription = Subscription.objects.create(
             follower=follower,
-            author=author,
-            created_on=request.data["created_on"]
+            author=author
         )
         serializer = SubscriptionSerializer(subscription)
         return Response(serializer.data)
