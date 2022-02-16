@@ -65,7 +65,7 @@ class PostView(ViewSet):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = "__all__"
+        fields = 'id', 'user', 'title', 'publication_date', 'image_url', 'content', 'approved', 'category', 'post_reactions'
         depth = 2
 
 class CreatePostSerializer(serializers.ModelSerializer):
