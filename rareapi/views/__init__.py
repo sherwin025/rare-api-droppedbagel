@@ -5,4 +5,5 @@ from .tag import TagView
 from .commentView import CommentView
 from .categoryView import CategoryView
 from .userview import UserView
-
+from .reaction import ReactionView
+from .post_reaction import PostReactionView
