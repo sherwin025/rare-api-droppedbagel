@@ -46,7 +46,8 @@ class PostView(ViewSet):
             post = Post.objects.get(pk=pk)
             serializer = CreatePostSerializer(post, request.data)
             serializer.is_valid(raise_exception=True)
-            serializer.save()
+            post = serializer.save()
+            post.tags.set(request.data["tags"])
             return Response(None, status=status.HTTP_204_NO_CONTENT)
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
@@ -55,7 +56,8 @@ class PostView(ViewSet):
         try:
             serializer = CreatePostSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
-            serializer.save()
+            post = serializer.save()
+            post.tags.set(request.data["tags"])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
@@ -65,7 +67,7 @@ class PostView(ViewSet):
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = 'id', 'user', 'title', 'publication_date', 'image_url', 'content', 'approved', 'category', 'post_reactions'
+        fields = 'id', 'user', 'title', 'publication_date', 'image_url', 'content', 'approved', 'category', 'post_reactions', 'tags'
         depth = 2
 
 class CreatePostSerializer(serializers.ModelSerializer):
