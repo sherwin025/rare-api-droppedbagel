@@ -7,3 +7,5 @@ from .categoryView import CategoryView
 from .userview import UserView
 from .reaction import ReactionView
 from .post_reaction import PostReactionView
+from .postimageviews import PostImageView
+from .demotion import DemotionView
