@@ -9,5 +9,4 @@ class Post(models.Model):
     content = models.CharField(max_length=10000)
     approved = models.BooleanField()
     category = models.ForeignKey("category", on_delete=models.CASCADE)
-    # tags = models.ManyToManyField("tag", through="PostTags", related_name="posttags")
-    # post_reactions = models.ManyToManyField("reaction", through="post_reactions", related_name="post_reactions")
+    tags = models.ManyToManyField("tag", through="PostTag", related_name="taggedpost")
