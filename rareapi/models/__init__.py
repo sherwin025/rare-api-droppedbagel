@@ -1,4 +1,4 @@
-from .user import theUser
+from .user import theUser, userPicture
 from .subscription import Subscription
 from .categories import Category
 from .post import Post
