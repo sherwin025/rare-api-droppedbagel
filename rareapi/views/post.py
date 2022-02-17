@@ -8,6 +8,7 @@ from rest_framework import serializers, status
 from rareapi.models import Post, theUser
 from django.db.models import Q
 from datetime import datetime
+from rest_framework.decorators import action
 
 
 class PostView(ViewSet):
@@ -20,21 +21,30 @@ class PostView(ViewSet):
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
 
     def list(self, request):
-        posts = Post.objects.filter(Q(approved="True") & Q(publication_date__lte=datetime.now())).order_by("-publication_date")
-        search_title = self.request.query_params.get("search", None)
-        search_cat = self.request.query_params.get("catfilter", None)
-        search_tag = self.request.query_params.get("tagfilter", None)
-        search_user = self.request.query_params.get("userfilter", None)
-        if search_title is not None:
-            posts = posts.filter(Q(title__contains=search_title))
-        if search_cat is not None:
-            posts = posts.filter(Q(category=search_cat))
-        if search_tag is not None:
-            posts = posts.filter(Q(tag__contains=search_tag))
-        if search_user is not None:
-            posts = posts.filter(Q(user=search_user))
+        admin = self.request.query_params.get("admin", None)
+        user = self.request.query_params.get("user", None)
+        if admin is not None:
+            posts = Post.objects.filter(Q(approved="False") & Q(publication_date__lte=datetime.now())).order_by("-publication_date")
+        elif user is not None:
+            posts = Post.objects.all()
+        else:
+            posts = Post.objects.filter(Q(approved="True") & Q(publication_date__lte=datetime.now())).order_by("-publication_date")
+            search_title = self.request.query_params.get("search", None)
+            search_cat = self.request.query_params.get("catfilter", None)
+            search_tag = self.request.query_params.get("tagfilter", None)
+            search_user = self.request.query_params.get("userfilter", None)
+            if search_title is not None:
+                posts = posts.filter(Q(title__contains=search_title))
+            if search_cat is not None:
+                posts = posts.filter(Q(category=search_cat))
+            if search_tag is not None:
+                posts = posts.filter(Q(tag__contains=search_tag))
+            if search_user is not None:
+                posts = posts.filter(Q(user=search_user))
+        
         serializer = PostSerializer(posts, many=True)
         return Response(serializer.data)
+    
     
     def destroy(self, request, pk):
         post = Post.objects.get(pk=pk)
