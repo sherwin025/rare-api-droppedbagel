@@ -49,6 +49,29 @@ class UserView(ViewSet):
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
 
+    @action(methods=['put'], detail=True)
+    def makeadmin(self, request, pk):
+        try:
+            user = User.objects.get(pk=pk)
+            user.is_staff = 1
+            user.save()
+            return Response ({'message: User is now an admin'}, status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
+
+
+    @action(methods=['put'], detail=True)
+    def removeadmin(self, request, pk):
+        try:
+            user = User.objects.get(pk=pk)
+            user.is_staff = 0
+            user.save()
+            return Response ({'message: User has been removed as an admin'}, status=status.HTTP_204_NO_CONTENT)
+        except User.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
