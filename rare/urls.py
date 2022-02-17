@@ -7,6 +7,8 @@ from rareapi.views import register_user,  login_user, CategoryView, CommentView,
 from rest_framework import routers
 from rareapi.views.postimageviews import PostImageView
 from rareapi.views.subscriptions import SubscriptionView
+from django.conf.urls.static import static
+from django.conf import settings
 
 router = routers.DefaultRouter(trailing_slash=False)
 
@@ -23,6 +25,7 @@ router.register(r'reactions', ReactionView, 'reaction')
 router.register(r'postreactions', PostReactionView, 'postreaction')
 router.register(r'postimage', PostImageView, 'postimage')
 
+
 urlpatterns = [
     path('register', register_user),
     path('login', login_user),
@@ -30,3 +33,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
