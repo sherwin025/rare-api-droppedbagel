@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.conf.urls import include
 from django.urls import path
-
+from django.conf.urls.static import static
+from django.conf import settings
 from rareapi.views import register_user,  login_user, CategoryView, CommentView, UserView, ReactionView, PostReactionView
-
 from rest_framework import routers
+from rareapi.views.postimageviews import PostImageView
 from rareapi.views.subscriptions import SubscriptionView
 from django.conf.urls.static import static
 from django.conf import settings
@@ -22,6 +23,7 @@ router.register(r'tags', TagView, 'tag')
 router.register(r'users', UserView, 'user')
 router.register(r'reactions', ReactionView, 'reaction')
 router.register(r'postreactions', PostReactionView, 'postreaction')
+router.register(r'postimage', PostImageView, 'postimage')
 
 
 urlpatterns = [
@@ -30,4 +32,5 @@ urlpatterns = [
     path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

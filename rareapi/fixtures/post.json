@@ -6,7 +6,6 @@
             "user": 1,
             "title": "first person",
             "publication_date": "2022-02-14",
-            "image_url": "google.com",
             "content": "ello mate",
             "approved": 1,
             "category": 1
@@ -18,7 +17,6 @@
             "user": 1,
             "title": "not approved",
             "publication_date": "2022-02-14",
-            "image_url": "google.com",
             "content": "not approvede",
             "approved": 0,
             "category": 2
@@ -31,7 +29,6 @@
             "user": 1,
             "title": "not approved",
             "publication_date": "2025-02-14",
-            "image_url": "google.com",
             "content": "not approvede",
             "approved": 1,
             "category": 3
@@ -43,7 +40,6 @@
             "user": 1,
             "title": "new new",
             "publication_date": "2021-02-14",
-            "image_url": "google.com",
             "content": "not approvede",
             "approved": 1,
             "category": 3
