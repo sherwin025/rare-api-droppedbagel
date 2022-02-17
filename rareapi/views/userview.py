@@ -76,5 +76,5 @@ class UserView(ViewSet):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = theUser
-        fields = "__all__"
+        fields = 'id', 'user', 'bio', 'created_on', 'profile_pic', 'demotions'
         depth = 2

@@ -3,7 +3,7 @@ from django.conf.urls import include
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from rareapi.views import register_user,  login_user, CategoryView, CommentView, UserView, ReactionView, PostReactionView
+from rareapi.views import register_user,  login_user, CategoryView, CommentView, UserView, ReactionView, PostReactionView, DemotionView
 from rest_framework import routers
 from rareapi.views.postimageviews import PostImageView
 from rareapi.views.subscriptions import SubscriptionView
@@ -24,6 +24,8 @@ router.register(r'users', UserView, 'user')
 router.register(r'reactions', ReactionView, 'reaction')
 router.register(r'postreactions', PostReactionView, 'postreaction')
 router.register(r'postimage', PostImageView, 'postimage')
+router.register(r'demotions', DemotionView, 'demotion')
+
 
 
 urlpatterns = [

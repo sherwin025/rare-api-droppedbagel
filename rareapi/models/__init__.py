@@ -8,4 +8,5 @@ from .reaction import Reaction
 from. post_reaction import PostReaction
 from .post_tag import PostTag
 from .postimage import PostImage
+from .demotion import Demotion
 
