@@ -4,7 +4,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-
+from django.core.files.base import ContentFile
+import base64
+import uuid
 from rareapi.models import theUser
 
 @api_view(['POST'])
@@ -24,11 +26,15 @@ def login_user(request):
 
     # If authentication was successful, respond with their token
     if authenticated_user is not None:
+        staff = False
+        if authenticated_user.is_staff == 1:
+            staff = True
         token = Token.objects.get(user=authenticated_user)
         data = {
             'valid': True,
             'token': token.key,
-            'userid': authenticated_user.theuser.id
+            'userid': authenticated_user.theuser.id,
+            'isStaff': staff
         }
         return Response(data)
     else:
@@ -47,6 +53,9 @@ def register_user(request):
 
     # Create a new user by invoking the `create_user` helper method
     # on Django's built-in User model
+    format, imgstr = request.data["profile_pic"].split(';base64,')
+    ext = format.split('/')[-1]
+    data = ContentFile(base64.b64decode(imgstr), name=f'{request.data["username"]}-{uuid.uuid4()}.{ext}')
     new_user = User.objects.create_user(
         username=request.data['username'],
         password=request.data['password'],
@@ -58,6 +67,7 @@ def register_user(request):
     user = theUser.objects.create(
         bio=request.data['bio'],
         user=new_user,
+        profile_pic=data
     )
 
     # Use the REST Framework's token generator on the new user account
@@ -65,5 +75,6 @@ def register_user(request):
     # Return the token to the client
     data = { 'token': token.key,
             'valid': True,
-            'userid': user.id}
+            'userid': user.id,
+            'isStaff': False}
     return Response(data)

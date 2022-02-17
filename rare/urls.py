@@ -22,7 +22,7 @@ router.register(r'tags', TagView, 'tag')
 router.register(r'users', UserView, 'user')
 router.register(r'reactions', ReactionView, 'reaction')
 router.register(r'postreactions', PostReactionView, 'postreaction')
-# router.register(r'profilepics', ProfilePicView, 'profilepic')
+
 
 urlpatterns = [
     path('register', register_user),
