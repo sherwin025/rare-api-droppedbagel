@@ -38,7 +38,7 @@ class PostView(ViewSet):
             if search_cat is not None:
                 posts = posts.filter(Q(category=search_cat))
             if search_tag is not None:
-                posts = posts.filter(Q(tag__contains=search_tag))
+                posts = posts.filter(Q(tags__id=search_tag))
             if search_user is not None:
                 posts = posts.filter(Q(user=search_user))
         
