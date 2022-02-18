@@ -9,6 +9,13 @@ import base64
 
 
 class PostImageView(ViewSet):
+
+    def list(self, request):
+        image = PostImage.objects.all()
+       
+        serializer = ImageSerializer(image, many=True)
+        return Response(serializer.data)
+
     def retrieve(self, request, pk):
         image = PostImage.objects.get(pk=pk)
       
@@ -33,6 +40,18 @@ class PostImageView(ViewSet):
         image = PostImage.objects.get(pk=pk)
         image.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+    def update(self,request, pk):
+        try: 
+            format, imgstr = request.data["postimage"].split(';base64,')
+            ext = format.split('/')[-1]
+            data = ContentFile(base64.b64decode(imgstr), name=f'{request.data["post"]}-{uuid.uuid4()}.{ext}')
+            image = PostImage.objects.get(pk=pk)
+            image.postimage = data
+            image.save()
+            return Response(None, status=status.HTTP_204_NO_CONTENT)
+        except ValidationError as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
 
 
