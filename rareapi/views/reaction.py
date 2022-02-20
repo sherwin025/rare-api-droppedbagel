@@ -23,11 +23,7 @@ class ReactionView(ViewSet):
 
 
     def list(self, request):
-        """Handle GET requests to get all reactions
-
-        Returns:
-            Response -- JSON serialized list of reactions
-        """
+ 
         reactions = Reaction.objects.all()
         serializer = ReactionSerializer(reactions, many=True)
         return Response(serializer.data)
